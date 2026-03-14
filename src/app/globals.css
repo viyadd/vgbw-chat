@@ -1,0 +1,13 @@
+/* src/app/globals.css */
+@import "tailwindcss";
+
+:root {
+  --background: #0a2558; /* Глубокий синий с макета */
+}
+
+body {
+  background-color: var(--background);
+  color: white;
+  margin: 0;
+  font-family: sans-serif;
+}
