@@ -12,6 +12,11 @@ export interface ChatResponse {
   };
 }
 
+export interface HealthResponse {
+  status: string;
+  version: string;
+}
+
 const API_URL = "/api/v1/chat";
 const AUTH_STRING = process.env.NEXT_PUBLIC_API_AUTH || "";
 
@@ -37,6 +42,14 @@ export const apiClient = {
       throw new Error(`Ошибка сервера: ${response.status}`);
     }
 
+    return response.json();
+  },
+  getHealth: async (): Promise<HealthResponse> => {
+    const response = await fetch("/api/v1/health", {
+      method: "GET",
+    });
+
+    if (!response.ok) throw new Error("Backend unreachable");
     return response.json();
   },
 };

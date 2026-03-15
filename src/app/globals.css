@@ -1,5 +1,6 @@
 /* src/app/globals.css */
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @layer utilities {
   /* Скрытие скроллбара для Chrome, Safari и Opera */

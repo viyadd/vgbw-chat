@@ -7,6 +7,7 @@ import { ChatInput } from "@/components/chat/ChatInput";
 import { ChatDisplay, Message } from "@/components/chat/ChatDisplay";
 import { apiClient } from "@/lib/api-client";
 import { useNotification } from "@/hooks/useNotification";
+import { SystemInfo } from "@/components";
 
 export const HomeView = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -55,7 +56,7 @@ export const HomeView = () => {
   );
 
   return (
-    <div className="flex flex-col h-screen bg-[#0a2558] text-white">
+    <div className="flex flex-col h-screen bg-[#0a2558] text-white overflow-hidden relative">
       {messages.length === 0 ? (
         <div className="flex-1 flex flex-col items-start justify-center px-8 max-w-2xl mx-auto w-full">
           <div className="bg-[#1a3a7a] p-2.5 rounded-xl mb-8 shadow-lg">
@@ -76,6 +77,9 @@ export const HomeView = () => {
       )}
 
       <ChatInput onSend={handleSendMessage} disabled={isLoading} />
+
+      {/* Маленький индикатор версий */}
+      <SystemInfo />
     </div>
   );
 };
