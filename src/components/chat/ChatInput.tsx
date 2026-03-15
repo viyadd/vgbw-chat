@@ -6,7 +6,12 @@ import { Mic, ChevronRight } from "lucide-react";
 import { useSpeechToText } from "@/hooks/useSpeechToText";
 import { useNotification } from "@/hooks/useNotification";
 
-export const ChatInput = () => {
+interface ChatInputProps {
+  onSend: (text: string) => void;
+  disabled: boolean;
+}
+
+export const ChatInput = ({ onSend, disabled }: ChatInputProps) => {
   const [text, setText] = useState("");
   const notify = useNotification();
 
@@ -30,8 +35,8 @@ export const ChatInput = () => {
   };
 
   const handleSend = () => {
-    if (!text.trim()) return;
-    console.log("Sending:", text);
+    if (!text.trim() || disabled) return;
+    onSend(text);
     setText("");
   };
 

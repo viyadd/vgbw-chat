@@ -1,22 +1,42 @@
 // src/lib/api-client.ts
 
-export interface ChatMessage {
-  role: "user" | "assistant";
-  content: string;
+export interface ChatResponse {
+  status: string;
+  data: {
+    reply: string;
+    usage?: {
+      prompt_tokens: number;
+      completion_tokens: number;
+      total_tokens: number;
+    };
+  };
 }
 
-/**
- * Имитация клиента для работы с API.
- * На данном этапе просто выводит данные в консоль.
- */
+const API_URL = "/api/v1/chat";
+const AUTH_STRING = process.env.NEXT_PUBLIC_API_AUTH || "";
+
 export const apiClient = {
-  sendMessage: async (message: string): Promise<void> => {
-    console.log("[API Call]: Sending message...", {
-      content: message,
-      timestamp: new Date().toISOString(),
+  sendMessage: async (
+    message: string,
+    signal?: AbortSignal,
+  ): Promise<ChatResponse> => {
+    if (!API_URL) throw new Error("API URL is not configured");
+
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Basic ${btoa(AUTH_STRING)}`,
+      },
+      body: JSON.stringify({ message }),
+      signal,
     });
 
-    // Имитация задержки сети
-    return new Promise((resolve) => setTimeout(resolve, 500));
+    if (!response.ok) {
+      if (response.status === 401) throw new Error("Ошибка авторизации (401)");
+      throw new Error(`Ошибка сервера: ${response.status}`);
+    }
+
+    return response.json();
   },
 };
