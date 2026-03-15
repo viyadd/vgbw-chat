@@ -42,7 +42,7 @@ export const ChatInput = ({ onSend, disabled }: ChatInputProps) => {
 
   return (
     <div className="w-full px-6 pb-10">
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-3xl mx-auto">
         <div className="relative flex items-center bg-[#1a3a7a]/50 border border-[#2a4a8a] rounded-2xl p-1.5 transition-colors">
           <button
             onClick={handleMicClick}

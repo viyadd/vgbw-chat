@@ -1,6 +1,19 @@
 /* src/app/globals.css */
 @import "tailwindcss";
 
+@layer utilities {
+  /* Скрытие скроллбара для Chrome, Safari и Opera */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Скрытие скроллбара для IE, Edge и Firefox */
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
 :root {
   --background: #0a2558; /* Глубокий синий с макета */
 }
